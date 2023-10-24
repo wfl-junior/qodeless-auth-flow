@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
@@ -14,6 +15,7 @@ const config: Config = {
             500: "#DDA82A",
           },
           gray: {
+            50: "#F6F6F6",
             100: "#EAF0F7",
             200: "#DFDFDF",
             300: "#C7C7C7",
