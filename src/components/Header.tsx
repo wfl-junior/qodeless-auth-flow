@@ -3,11 +3,15 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Theme } from "~/types/Theme";
 import { NavLink } from "./NavLink";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
-interface HeaderProps {}
+interface HeaderProps {
+  initialTheme?: Theme;
+}
 
-export function Header({}: HeaderProps): JSX.Element | null {
+export function Header({ initialTheme }: HeaderProps): JSX.Element | null {
   const pathname = usePathname();
 
   return (
@@ -17,23 +21,26 @@ export function Header({}: HeaderProps): JSX.Element | null {
           className="flex items-center gap-6"
           aria-label="Navegação principal"
         >
-          <NavLink href="/" label="Home" isActive={pathname === "/"} />
-          <NavLink href="#" label="Sobre" />
-          <NavLink href="#" label="Blog" />
-          <NavLink href="#" label="Páginas" />
-          <NavLink href="#" label="Contato" />
+          <NavLink href="/" isActive={pathname === "/"}>
+            Home
+          </NavLink>
+
+          <NavLink href="#">Sobre</NavLink>
+          <NavLink href="#">Blog</NavLink>
+          <NavLink href="#">Páginas</NavLink>
+          <NavLink href="#">Contato</NavLink>
         </nav>
 
-        <nav className="flex items-center gap-6">
-          <NavLink
-            href="/login"
-            label="Entrar"
-            isActive={pathname === "/login"}
-          />
+        <div className="flex items-center gap-6">
+          <ThemeSwitcher initialTheme={initialTheme} />
+
+          <NavLink href="/login" isActive={pathname === "/login"}>
+            Entrar
+          </NavLink>
 
           <Link
             href="/register"
-            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white"
+            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-[0_4px_4px_0_rgba(0,0,0,0.05)]"
           >
             <span>Registrar-se</span>
 
@@ -45,7 +52,7 @@ export function Header({}: HeaderProps): JSX.Element | null {
               />
             )}
           </Link>
-        </nav>
+        </div>
       </header>
     </div>
   );

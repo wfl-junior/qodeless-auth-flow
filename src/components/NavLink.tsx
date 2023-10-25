@@ -4,21 +4,21 @@ import { motion } from "framer-motion";
 import Link, { LinkProps } from "next/link";
 
 interface NavLinkProps extends LinkProps {
-  label: string;
   isActive?: boolean;
+  children: React.ReactNode;
 }
 
 export function NavLink({
-  label,
+  children,
   isActive,
   ...props
 }: NavLinkProps): JSX.Element | null {
   return (
     <Link
       {...props}
-      className="text-base font-medium relative p-2.5 hover:text-app-gray-500 dark:hover:text-app-gray-100"
+      className="text-base font-medium relative p-2.5 hover:text-app-gray-500 dark:hover:text-app-gray-200 transition-colors"
     >
-      <span>{label}</span>
+      {children}
 
       {isActive && (
         <motion.div

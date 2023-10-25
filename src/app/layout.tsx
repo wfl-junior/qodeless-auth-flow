@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
+import { cookies } from "next/headers";
 import NextTopLoader from "nextjs-toploader";
 import { Header } from "~/components/Header";
+import { Theme } from "~/types/Theme";
 import { classNames } from "~/utils/classNames";
+import { THEME_COOKIE_NAME } from "~/utils/constants";
 import "./globals.css";
 
 const font = Fredoka({
@@ -23,12 +26,15 @@ interface RootLayoutProps {
 }
 
 function RootLayout({ children }: RootLayoutProps) {
+  const theme = (cookies().get(THEME_COOKIE_NAME)?.value ??
+    Theme.Dark) as Theme;
+
   return (
-    <html lang="pt-BR" dir="ltr" className="dark">
+    <html lang="pt-BR" dir="ltr" className={theme}>
       <body
         className={classNames(
           font.className,
-          "text-white bg-app-gray-50 dark:bg-app-blue-900 flex flex-col min-h-screen",
+          "text-black dark:text-white bg-app-gray-50 dark:bg-app-blue-900 flex flex-col min-h-screen transition-colors",
         )}
       >
         <NextTopLoader
@@ -41,7 +47,7 @@ function RootLayout({ children }: RootLayoutProps) {
           shadow="0 0 10px #4461F2, 0 0 5px #4461F2"
         />
 
-        <Header />
+        <Header initialTheme={theme} />
         {children}
       </body>
     </html>

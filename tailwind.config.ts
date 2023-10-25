@@ -12,6 +12,7 @@ const config: Config = {
             900: "#14162E",
           },
           yellow: {
+            400: "#FFE146",
             500: "#DDA82A",
           },
           gray: {
