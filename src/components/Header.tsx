@@ -40,7 +40,7 @@ export function Header({ initialTheme }: HeaderProps): JSX.Element | null {
 
           <Link
             href="/register"
-            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-[0_4px_4px_0_rgba(0,0,0,0.05)]"
+            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-header-button"
           >
             <span>Registrar-se</span>
 

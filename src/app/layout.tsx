@@ -30,25 +30,20 @@ function RootLayout({ children }: RootLayoutProps) {
     Theme.Dark) as Theme;
 
   return (
-    <html lang="pt-BR" dir="ltr" className={theme}>
+    <html
+      dir="ltr"
+      lang="pt-BR"
+      className={theme === Theme.Dark ? "dark" : undefined}
+    >
       <body
         className={classNames(
           font.className,
           "text-black dark:text-white bg-app-gray-50 dark:bg-app-blue-900 flex flex-col min-h-screen transition-colors",
         )}
       >
-        <NextTopLoader
-          height={2}
-          speed={200}
-          crawl={true}
-          color="#4461F2"
-          crawlSpeed={200}
-          showSpinner={false}
-          shadow="0 0 10px #4461F2, 0 0 5px #4461F2"
-        />
-
+        <NextTopLoader height={2} color="#4461F2" showSpinner={false} />
         <Header initialTheme={theme} />
-        {children}
+        <div className="px-6 flex flex-col flex-1">{children}</div>
       </body>
     </html>
   );

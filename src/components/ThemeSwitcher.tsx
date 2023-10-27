@@ -29,28 +29,31 @@ export function ThemeSwitcher({
     document.cookie = `${THEME_COOKIE_NAME}=${newTheme}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
   }
 
+  const isDarkTheme = theme === Theme.Dark;
+
   return (
     <button
       onClick={handleToggleTheme}
+      title={`Alternar para tema ${isDarkTheme ? "claro" : "escuro"}`}
       className={classNames(
-        "h-8 w-20 relative transition-colors rounded-full overflow-hidden shadow-[0_4px_4px_0_rgba(0,0,0,0.05)]",
-        theme === Theme.Dark ? "bg-[#002738]" : "bg-[#E0F6FF]",
+        "h-8 w-20 relative transition-colors rounded-full overflow-hidden shadow-header-button",
+        isDarkTheme ? "bg-app-blue-800" : "bg-app-blue-100",
       )}
     >
       <span className="sr-only">{Theme.Dark}</span>
 
       <Image
         alt=""
-        src={theme === Theme.Dark ? dark : light}
         quality={100}
         className="object-cover"
+        src={isDarkTheme ? dark : light}
       />
 
       <div
         aria-hidden
         className={classNames(
           "absolute rounded-full aspect-square inset-y-1 transition left-1",
-          theme === Theme.Dark
+          isDarkTheme
             ? "bg-white shadow-[0_0_10px_white] translate-x-12"
             : "bg-app-yellow-400 shadow-[0_0_10px_#FFE146]",
         )}

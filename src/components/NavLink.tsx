@@ -24,7 +24,7 @@ export function NavLink({
         <motion.div
           aria-hidden
           layoutId="nav-link-active-indicator"
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-7 rounded-full bg-app-blue-500"
+          className="absolute bottom-0 inset-x-0 h-[3px] rounded-full bg-app-blue-500"
         />
       )}
     </Link>
