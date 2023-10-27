@@ -40,17 +40,18 @@ export function Header({ initialTheme }: HeaderProps): JSX.Element | null {
 
           <Link
             href="/register"
-            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-header-button"
+            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-header-button relative group"
           >
-            <span>Registrar-se</span>
-
-            {pathname === "/register" && (
-              <motion.div
-                aria-hidden
-                layoutId="nav-link-active-indicator"
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-7 rounded-full bg-app-blue-500"
-              />
-            )}
+            <span className="relative">
+              Registrar-se
+              {pathname === "/register" && (
+                <motion.div
+                  aria-hidden
+                  layoutId="nav-link-active-indicator"
+                  className="absolute -bottom-1 inset-x-0 h-[3px] rounded-full bg-app-blue-500 group-hover:bg-white transition-colors"
+                />
+              )}
+            </span>
           </Link>
         </div>
       </header>

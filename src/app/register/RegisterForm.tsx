@@ -9,29 +9,36 @@ import { OAuthButton } from "~/components/OAuthButton";
 import { PasswordInput } from "~/components/PasswordInput";
 import { GitHubIcon } from "~/components/icons/GitHubIcon";
 import { GoogleIcon } from "~/components/icons/GoogleIcon";
-import { LoginFormInput, loginValidationSchema } from "~/validation/login";
+import {
+  RegisterFormInput,
+  registerValidationSchema,
+} from "~/validation/register";
 
-interface LoginFormProps {}
+interface RegisterFormProps {}
 
-export function LoginForm({}: LoginFormProps): JSX.Element | null {
+export function RegisterForm({}: RegisterFormProps): JSX.Element | null {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormInput>({
-    resolver: zodResolver(loginValidationSchema),
+  } = useForm<RegisterFormInput>({
+    resolver: zodResolver(registerValidationSchema),
     defaultValues: {
       email: "",
       password: "",
+      passwordConfirmation: "",
     },
   });
 
-  const handleLogin = handleSubmit(async values => {
+  const handleRegister = handleSubmit(async values => {
     console.log(values);
   });
 
   return (
-    <form onSubmit={handleLogin} className="flex flex-col w-full max-w-[400px]">
+    <form
+      onSubmit={handleRegister}
+      className="flex flex-col w-full max-w-[400px]"
+    >
       <div className="flex flex-col gap-5">
         <FormControl errorMessage={errors.email?.message}>
           <Input placeholder="E-mail" {...register("email")} />
@@ -40,17 +47,17 @@ export function LoginForm({}: LoginFormProps): JSX.Element | null {
         <FormControl errorMessage={errors.password?.message}>
           <PasswordInput placeholder="Senha" {...register("password")} />
         </FormControl>
+
+        <FormControl errorMessage={errors.passwordConfirmation?.message}>
+          <PasswordInput
+            placeholder="Confirmar senha"
+            {...register("passwordConfirmation")}
+          />
+        </FormControl>
       </div>
 
-      <a
-        href="#"
-        className="text-app-gray-300 text-sm font-normal self-end mt-6 hover:text-app-gray-400 transition-colors dark:hover:text-app-gray-200"
-      >
-        Esqueci a senha
-      </a>
-
       <Button type="submit" className="mt-16" isLoading={isSubmitting}>
-        Entrar
+        Cadastrar-se
       </Button>
 
       <div className="flex items-center justify-center relative before:absolute before:h-px before:inset-x-0 before:top-1/2 before:-z-10 before:bg-app-gray-300 my-16">
