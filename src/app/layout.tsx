@@ -7,6 +7,7 @@ import { Theme } from "~/types/Theme";
 import { classNames } from "~/utils/classNames";
 import { THEME_COOKIE_NAME } from "~/utils/constants";
 import { getAuthenticatedUser } from "~/utils/getAuthenticatedUser";
+import { Toastify } from "./Toastify";
 import "./globals.css";
 
 const font = Fredoka({
@@ -48,6 +49,7 @@ async function RootLayout({
       >
         <NextTopLoader height={2} color="#4461F2" showSpinner={false} />
         <Header initialTheme={theme} isAuthenticated={Boolean(user)} />
+        <Toastify />
         <div className="px-6 flex flex-col flex-1">{children}</div>
       </body>
     </html>

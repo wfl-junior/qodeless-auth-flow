@@ -15,6 +15,13 @@
       "when": 1698756718549,
       "tag": "0001_polite_squadron_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1698769187265,
+      "tag": "0002_silly_loki",
+      "breakpoints": true
     }
   ]
 }

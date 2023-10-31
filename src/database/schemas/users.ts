@@ -11,6 +11,7 @@ export const users = pgTable("users", {
   githubId: integer("github_id").unique(),
   googleId: varchar("google_id", { length: 50 }).unique(),
   email: varchar("email", { length: 256 }).unique(),
+  password: varchar("password", { length: 100 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

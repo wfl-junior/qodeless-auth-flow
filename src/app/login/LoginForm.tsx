@@ -1,7 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "~/components/Button";
 import { FormControl } from "~/components/FormControl";
 import { Input } from "~/components/Input";
@@ -9,12 +13,15 @@ import { OAuthButton } from "~/components/OAuthButton";
 import { PasswordInput } from "~/components/PasswordInput";
 import { GitHubIcon } from "~/components/icons/GitHubIcon";
 import { GoogleIcon } from "~/components/icons/GoogleIcon";
+import { api } from "~/lib/axios";
 import { GOOGLE_AUTH_REDIRECT_URL } from "~/utils/constants";
 import { LoginFormInput, loginValidationSchema } from "~/validation/login";
 
 interface LoginFormProps {}
 
 export function LoginForm({}: LoginFormProps): JSX.Element | null {
+  const router = useRouter();
+  const [isRedirecting, startTransition] = useTransition();
   const {
     register,
     handleSubmit,
@@ -28,7 +35,21 @@ export function LoginForm({}: LoginFormProps): JSX.Element | null {
   });
 
   const handleLogin = handleSubmit(async values => {
-    console.log(values);
+    try {
+      await api.post("/auth/login", values);
+      startTransition(() => {
+        router.refresh();
+        router.push("/");
+      });
+    } catch (error) {
+      let errorMessage = "Não foi possível entrar";
+
+      if (error instanceof AxiosError && error.response?.status === 400) {
+        errorMessage = "Credenciais inválidas";
+      }
+
+      toast.error(errorMessage);
+    }
   });
 
   return (
@@ -50,7 +71,11 @@ export function LoginForm({}: LoginFormProps): JSX.Element | null {
         Esqueci a senha
       </a>
 
-      <Button type="submit" className="mt-16" isLoading={isSubmitting}>
+      <Button
+        type="submit"
+        className="mt-16"
+        isLoading={isSubmitting || isRedirecting}
+      >
         Entrar
       </Button>
 
