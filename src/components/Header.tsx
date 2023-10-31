@@ -3,15 +3,20 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 import { Theme } from "~/types/Theme";
 import { NavLink } from "./NavLink";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface HeaderProps {
   initialTheme?: Theme;
+  isAuthenticated: boolean;
 }
 
-export function Header({ initialTheme }: HeaderProps): JSX.Element | null {
+export function Header({
+  initialTheme,
+  isAuthenticated,
+}: HeaderProps): JSX.Element | null {
   const pathname = usePathname();
 
   return (
@@ -34,25 +39,31 @@ export function Header({ initialTheme }: HeaderProps): JSX.Element | null {
         <div className="flex items-center gap-6">
           <ThemeSwitcher initialTheme={initialTheme} />
 
-          <NavLink href="/login" isActive={pathname === "/login"}>
-            Entrar
-          </NavLink>
+          {isAuthenticated ? (
+            <a href="/api/auth/logout">Sair</a>
+          ) : (
+            <Fragment>
+              <NavLink href="/login" isActive={pathname === "/login"}>
+                Entrar
+              </NavLink>
 
-          <Link
-            href="/register"
-            className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-header-button relative group"
-          >
-            <span className="relative">
-              Registrar-se
-              {pathname === "/register" && (
-                <motion.div
-                  aria-hidden
-                  layoutId="nav-link-active-indicator"
-                  className="absolute -bottom-1 inset-x-0 h-[3px] rounded-full bg-app-blue-500 group-hover:bg-white transition-colors"
-                />
-              )}
-            </span>
-          </Link>
+              <Link
+                href="/register"
+                className="bg-white px-5 py-3 text-app-blue-500 font-semibold text-base rounded-3xl transition-colors hover:bg-app-blue-500 hover:text-white shadow-header-button relative group"
+              >
+                <span className="relative">
+                  Registrar-se
+                  {pathname === "/register" && (
+                    <motion.div
+                      aria-hidden
+                      layoutId="nav-link-active-indicator"
+                      className="absolute -bottom-1 inset-x-0 h-[3px] rounded-full bg-app-blue-500 group-hover:bg-white transition-colors"
+                    />
+                  )}
+                </span>
+              </Link>
+            </Fragment>
+          )}
         </div>
       </header>
     </div>

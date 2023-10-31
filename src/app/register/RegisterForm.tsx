@@ -9,6 +9,7 @@ import { OAuthButton } from "~/components/OAuthButton";
 import { PasswordInput } from "~/components/PasswordInput";
 import { GitHubIcon } from "~/components/icons/GitHubIcon";
 import { GoogleIcon } from "~/components/icons/GoogleIcon";
+import { GOOGLE_AUTH_REDIRECT_URL } from "~/utils/constants";
 import {
   RegisterFormInput,
   registerValidationSchema,
@@ -67,12 +68,16 @@ export function RegisterForm({}: RegisterFormProps): JSX.Element | null {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <OAuthButton href="#">
+        <OAuthButton
+          href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile&redirect_uri=${GOOGLE_AUTH_REDIRECT_URL}`}
+        >
           <GoogleIcon />
           <span>Google</span>
         </OAuthButton>
 
-        <OAuthButton href="#">
+        <OAuthButton
+          href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`}
+        >
           <GitHubIcon />
           <span>GitHub</span>
         </OAuthButton>

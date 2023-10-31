@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import illustration from "~/assets/illustration.png";
 import { BlurBackground } from "~/components/BlurBackground";
+import { getAuthenticatedUser } from "~/utils/getAuthenticatedUser";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -9,7 +11,13 @@ export const metadata: Metadata = {
 
 interface HomeProps {}
 
-function Home({}: HomeProps): JSX.Element | null {
+async function Home({}: HomeProps): Promise<JSX.Element | null> {
+  const user = await getAuthenticatedUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
+
   return (
     <main className="flex gap-5 justify-between flex-1 items-center mx-auto w-full max-w-[1522px]">
       <div className="relative isolate min-h-[281px] flex items-center">

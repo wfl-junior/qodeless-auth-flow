@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1698756018546,
+      "tag": "0000_red_black_cat",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1698756718549,
+      "tag": "0001_polite_squadron_sinister",
+      "breakpoints": true
+    }
+  ]
+}

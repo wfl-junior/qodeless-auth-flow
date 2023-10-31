@@ -6,6 +6,7 @@ import { Header } from "~/components/Header";
 import { Theme } from "~/types/Theme";
 import { classNames } from "~/utils/classNames";
 import { THEME_COOKIE_NAME } from "~/utils/constants";
+import { getAuthenticatedUser } from "~/utils/getAuthenticatedUser";
 import "./globals.css";
 
 const font = Fredoka({
@@ -25,9 +26,13 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-function RootLayout({ children }: RootLayoutProps) {
+async function RootLayout({
+  children,
+}: RootLayoutProps): Promise<JSX.Element | null> {
   const theme = (cookies().get(THEME_COOKIE_NAME)?.value ??
     Theme.Dark) as Theme;
+
+  const user = await getAuthenticatedUser();
 
   return (
     <html
@@ -42,7 +47,7 @@ function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <NextTopLoader height={2} color="#4461F2" showSpinner={false} />
-        <Header initialTheme={theme} />
+        <Header initialTheme={theme} isAuthenticated={Boolean(user)} />
         <div className="px-6 flex flex-col flex-1">{children}</div>
       </body>
     </html>
